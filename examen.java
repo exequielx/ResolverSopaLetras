@@ -54,19 +54,19 @@ public class ParcialBactraking {
                 if (x + i < matrizSopaDeLetras.length) {
                     vertivalDecendente += matrizSopaDeLetras[x + i][y];
                 }
-                if (x - i >= 0) {
+                if (x - i > 0) {
                     verticalAcendente += matrizSopaDeLetras[x - i][y];
                 }
                 if (y + i < matrizSopaDeLetras.length) {
                     horizontalDecendente += matrizSopaDeLetras[x][y + i];
                 }
-                if (y - i >= 0) {
+                if (y - i > 0) {
                     horizontalAcendente += matrizSopaDeLetras[x][y - i];
                 }
                 if (x + i < matrizSopaDeLetras.length && y + i < matrizSopaDeLetras.length) {
                     transversalDecendente += matrizSopaDeLetras[x + i][y + i];
                 }
-                if (x - i <= 0 && y - i >= 0) {
+                if (x - i > 0 && y - i > 0) {
                     transversalAcendente += matrizSopaDeLetras[x - i][y - i];
                 }
             }
