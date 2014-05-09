@@ -24,7 +24,7 @@ public class ParcialBactraking {
     }
 
     public ParcialBactraking() {
-        buscarCandidato(0, 0, "CELEBRAN");
+        buscarCandidato(0, 0, "ESPECIAL");
     }
 
     private void buscarCandidato(int x, int y, String palabra) {
@@ -46,6 +46,8 @@ public class ParcialBactraking {
         String verticalAcendente = "";
         String horizontalDecendente = "";
         String horizontalAcendente = "";
+        String diagonalDecendente = "";
+        String diagonalAcendente = "";
         String transversalDecendente = "";
         String transversalAcendente = "";
 
@@ -54,20 +56,26 @@ public class ParcialBactraking {
                 if (x + i < matrizSopaDeLetras.length) {
                     vertivalDecendente += matrizSopaDeLetras[x + i][y];
                 }
-                if (x - i > 0) {
+                if (x - i >= 0) {
                     verticalAcendente += matrizSopaDeLetras[x - i][y];
                 }
-                if (y + i < matrizSopaDeLetras.length) {
+                if (y + i < matrizSopaDeLetras[0].length) {
                     horizontalDecendente += matrizSopaDeLetras[x][y + i];
                 }
-                if (y - i > 0) {
+                if (y - i >= 0) {
                     horizontalAcendente += matrizSopaDeLetras[x][y - i];
                 }
-                if (x + i < matrizSopaDeLetras.length && y + i < matrizSopaDeLetras.length) {
-                    transversalDecendente += matrizSopaDeLetras[x + i][y + i];
+                if (x + i < matrizSopaDeLetras.length && y + i < matrizSopaDeLetras[0].length) {
+                    diagonalDecendente += matrizSopaDeLetras[x + i][y + i];
                 }
-                if (x - i > 0 && y - i > 0) {
-                    transversalAcendente += matrizSopaDeLetras[x - i][y - i];
+                if (x - i >= 0 && y - i > 0) {
+                    diagonalAcendente += matrizSopaDeLetras[x - i][y - i];
+                }
+                if (x - i >= 0 && y + i < matrizSopaDeLetras.length) {
+                    transversalDecendente += matrizSopaDeLetras[x - i][y + i];
+                }
+                if (y - i >= 0 && x + i < matrizSopaDeLetras.length) {
+                    transversalAcendente += matrizSopaDeLetras[x + i][y - i];
                 }
             }
         }
@@ -82,6 +90,12 @@ public class ParcialBactraking {
         }
         if (horizontalAcendente.contains(comparacion)) {
             System.out.println("Si encontro en horizontal Acendente: " + x + "," + y);
+        }
+        if (diagonalAcendente.contains(comparacion)) {
+            System.out.println("Si encontro en diagonal Acendente: " + x + "," + y);
+        }
+        if (diagonalDecendente.contains(comparacion)) {
+            System.out.println("Si encontro en diagonal Decendente: " + x + "," + y);
         }
         if (transversalAcendente.contains(comparacion)) {
             System.out.println("Si encontro en transversal Acendente: " + x + "," + y);
