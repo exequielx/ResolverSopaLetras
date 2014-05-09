@@ -31,7 +31,12 @@ public class ParcialBactraking {
         if (x < matrizSopaDeLetras[0].length) {
             if (y < matrizSopaDeLetras.length) {
                 if (palabra.charAt(0) == matrizSopaDeLetras[x][y]) {
-                    recorrer(x, y, palabra);
+                    recorrer(x, y, palabra, 0, 0);
+                    String resultado = imprirResultado(x, y, palabra);
+                    if (!resultado.equals("vacio")) {
+                        System.out.println(resultado);
+                        return;
+                    }
                 }
                 buscarCandidato(x, y + 1, palabra);
             } else {
@@ -40,19 +45,19 @@ public class ParcialBactraking {
         }
     }
 
-    private void recorrer(int x, int y, String comparacion) {
-        char arr[] = comparacion.toCharArray();
-        String vertivalDecendente = "";
-        String verticalAcendente = "";
-        String horizontalDecendente = "";
-        String horizontalAcendente = "";
-        String diagonalDecendente = "";
-        String diagonalAcendente = "";
-        String transversalDecendente = "";
-        String transversalAcendente = "";
+    String vertivalDecendente = "";
+    String verticalAcendente = "";
+    String horizontalDecendente = "";
+    String horizontalAcendente = "";
+    String diagonalDecendente = "";
+    String diagonalAcendente = "";
+    String transversalDecendente = "";
+    String transversalAcendente = "";
 
-        for (int m = 0; m < arr.length; m++) {
-            for (int i = 0; i < matrizSopaDeLetras.length; i++) {
+    private void recorrer(int x, int y, String comparacion, int m, int i) {
+        if (m < comparacion.length()) {
+            if (i < matrizSopaDeLetras.length) {
+
                 if (x + i < matrizSopaDeLetras.length) {
                     vertivalDecendente += matrizSopaDeLetras[x + i][y];
                 }
@@ -71,38 +76,52 @@ public class ParcialBactraking {
                 if (x - i >= 0 && y - i > 0) {
                     diagonalAcendente += matrizSopaDeLetras[x - i][y - i];
                 }
-                if (x - i >= 0 && y + i < matrizSopaDeLetras.length) {
+                if (x - i >= 0 && y + i < matrizSopaDeLetras[0].length) {
                     transversalDecendente += matrizSopaDeLetras[x - i][y + i];
                 }
                 if (y - i >= 0 && x + i < matrizSopaDeLetras.length) {
                     transversalAcendente += matrizSopaDeLetras[x + i][y - i];
                 }
+                recorrer(x, y, comparacion, m, i + 1);
+            } else {
+                recorrer(x, y, comparacion, m + 1, 0);
             }
         }
+    }
+
+    private String imprirResultado(int x, int y, String comparacion) {
         if (vertivalDecendente.contains(comparacion)) {
-            System.out.println("Si encontro en verticar decreciente: " + x + "," + y);
+            return ("Si encontro en verticar decreciente: " + x + "," + y);
         }
+
         if (verticalAcendente.contains(comparacion)) {
-            System.out.println("Si encontro en verticar Acendente: " + x + "," + y);
+            return ("Si encontro en verticar Acendente: " + x + "," + y);
         }
+
         if (horizontalDecendente.contains(comparacion)) {
-            System.out.println("Si encontro en horizontal decreciente: " + x + "," + y);
+            return ("Si encontro en horizontal decreciente: " + x + "," + y);
         }
+
         if (horizontalAcendente.contains(comparacion)) {
-            System.out.println("Si encontro en horizontal Acendente: " + x + "," + y);
+            return ("Si encontro en horizontal Acendente: " + x + "," + y);
         }
+
         if (diagonalAcendente.contains(comparacion)) {
-            System.out.println("Si encontro en diagonal Acendente: " + x + "," + y);
+            return ("Si encontro en diagonal Acendente: " + x + "," + y);
         }
+
         if (diagonalDecendente.contains(comparacion)) {
-            System.out.println("Si encontro en diagonal Decendente: " + x + "," + y);
+            return ("Si encontro en diagonal Decendente: " + x + "," + y);
         }
+
         if (transversalAcendente.contains(comparacion)) {
-            System.out.println("Si encontro en transversal Acendente: " + x + "," + y);
+            return ("Si encontro en transversal Acendente: " + x + "," + y);
         }
+
         if (transversalDecendente.contains(comparacion)) {
-            System.out.println("Si encontro en transversal Decendente: " + x + "," + y);
+            return ("Si encontro en transversal Decendente: " + x + "," + y);
         }
+        return "vacio";
     }
 
 }
