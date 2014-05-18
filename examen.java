@@ -27,7 +27,7 @@ public class ParcialBactraking {
             {'L', 'V', 'C', 'P', 'M', 'Q', 'E', 'M', 'E', 'J', 'O', 'R', 'P', 'R', 'U'},
             {'R', 'M', 'S', 'Z', 'P', 'R', 'E', 'S', 'E', 'N', 'T', 'E', 'Ñ', 'R', 'A'},
             {'B', 'E', 'K', 'W', 'A', 'K', 'O', 'B', 'S', 'E', 'Q', 'U', 'I', 'O', 'S'}};
-    private final int[][] marca = new int[15][15];
+    private final int[][] marca = new int[matrizSopaDeLetras.length][matrizSopaDeLetras[0].length];
 
     public static void main(String[] args) {
         new ParcialBactraking();
