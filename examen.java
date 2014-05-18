@@ -2,6 +2,15 @@ package parcialbactraking;
 
 public class ParcialBactraking {
 
+    String vertivalDecendente = "";
+    String verticalAcendente = "";
+    String horizontalDecendente = "";
+    String horizontalAcendente = "";
+    String diagonalDecendente = "";
+    String diagonalAcendente = "";
+    String transversalDecendente = "";
+    String transversalAcendente = "";
+
     private char matrizSopaDeLetras[][]
             = {{'F', 'L', 'O', 'R', 'E', 'C', 'E', 'X', 'P', 'K', 'A', 'N', 'M', 'H', 'L'},
             {'G', 'W', 'P', 'S', 'M', 'B', 'B', 'F', 'S', 'V', 'D', 'A', 'S', 'E', 'B'},
@@ -18,41 +27,42 @@ public class ParcialBactraking {
             {'L', 'V', 'C', 'P', 'M', 'Q', 'E', 'M', 'E', 'J', 'O', 'R', 'P', 'R', 'U'},
             {'R', 'M', 'S', 'Z', 'P', 'R', 'E', 'S', 'E', 'N', 'T', 'E', 'Ñ', 'R', 'A'},
             {'B', 'E', 'K', 'W', 'A', 'K', 'O', 'B', 'S', 'E', 'Q', 'U', 'I', 'O', 'S'}};
+    private final int[][] marca = new int[15][15];
 
     public static void main(String[] args) {
         new ParcialBactraking();
     }
 
     public ParcialBactraking() {
-        buscarCandidato(0, 0, "ESPECIAL");
+        buscarConBactraking(0, 0, "ESPECIAL");
     }
 
-    private void buscarCandidato(int x, int y, String palabra) {
-        if (x < matrizSopaDeLetras[0].length) {
-            if (y < matrizSopaDeLetras.length) {
+    private void buscarConBactraking(int x, int y, String palabra) {
+        if (x >= 0 && y >= 0 && x < matrizSopaDeLetras.length && y < matrizSopaDeLetras[0].length && marca[x][y] != 1) {
+            if (noVistos() != 0) {
                 if (palabra.charAt(0) == matrizSopaDeLetras[x][y]) {
                     recorrer(x, y, palabra, 0, 0);
                     String resultado = imprirResultado(x, y, palabra);
                     if (!resultado.equals("vacio")) {
+                        marcarVistos();
                         System.out.println(resultado);
                         return;
                     }
                 }
-                buscarCandidato(x, y + 1, palabra);
-            } else {
-                buscarCandidato(x + 1, 0, palabra);
             }
+        } else {
+            return;
         }
+        marca[x][y] = 1;
+        buscarConBactraking(x + 1, y + 1, palabra);
+        buscarConBactraking(x - 1, y - 1, palabra);
+        buscarConBactraking(x + 1, y - 1, palabra);
+        buscarConBactraking(x - 1, y + 1, palabra);
+        buscarConBactraking(x + 1, y, palabra);
+        buscarConBactraking(x, y + 1, palabra);
+        buscarConBactraking(x - 1, y, palabra);
+        buscarConBactraking(x, y - 1, palabra);
     }
-
-    String vertivalDecendente = "";
-    String verticalAcendente = "";
-    String horizontalDecendente = "";
-    String horizontalAcendente = "";
-    String diagonalDecendente = "";
-    String diagonalAcendente = "";
-    String transversalDecendente = "";
-    String transversalAcendente = "";
 
     private void recorrer(int x, int y, String comparacion, int m, int i) {
         if (m < comparacion.length()) {
@@ -77,10 +87,10 @@ public class ParcialBactraking {
                     diagonalAcendente += matrizSopaDeLetras[x - i][y - i];
                 }
                 if (x - i >= 0 && y + i < matrizSopaDeLetras[0].length) {
-                    transversalDecendente += matrizSopaDeLetras[x - i][y + i];
+                    transversalAcendente += matrizSopaDeLetras[x - i][y + i];
                 }
                 if (y - i >= 0 && x + i < matrizSopaDeLetras.length) {
-                    transversalAcendente += matrizSopaDeLetras[x + i][y - i];
+                    transversalDecendente += matrizSopaDeLetras[x + i][y - i];
                 }
                 recorrer(x, y, comparacion, m, i + 1);
             } else {
@@ -90,9 +100,6 @@ public class ParcialBactraking {
     }
 
     private String imprirResultado(int x, int y, String comparacion) {
-        if (vertivalDecendente.contains(comparacion)) {
-            return ("Si encontro en verticar decreciente: " + x + "," + y);
-        }
 
         if (verticalAcendente.contains(comparacion)) {
             return ("Si encontro en verticar Acendente: " + x + "," + y);
@@ -122,6 +129,25 @@ public class ParcialBactraking {
             return ("Si encontro en transversal Decendente: " + x + "," + y);
         }
         return "vacio";
+    }
+
+    private int noVistos() {
+        for (int[] marca1 : marca) {
+            for (int j = 0; j < marca.length; j++) {
+                if (marca1[j] == 0) {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void marcarVistos() {
+        for (int[] marca1 : marca) {
+            for (int j = 0; j < marca.length; j++) {
+                marca1[j] = 1;
+            }
+        }
     }
 
 }
