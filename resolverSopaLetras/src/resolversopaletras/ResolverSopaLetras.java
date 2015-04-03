@@ -2,7 +2,7 @@ package resolversopaletras;
 
 /**
  *
- * @author exequiel hillairet
+ * @author exequielx
  */
 public class ResolverSopaLetras {
 
